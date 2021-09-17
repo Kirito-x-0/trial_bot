@@ -1,3 +1,1 @@
-worker:
-  command:
-    - python3 app.py
+worker: python script.py
