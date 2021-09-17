@@ -1,2 +1,2 @@
-bot_token= "1989785752:AAGw4zVGqM6LaRNfUH52Qw3MohfGZCPf_tE"
+bot_token= "1960760901:AAEPNZwRT-YSOtv5hfYyqkcWWLmGsPQcIl0"
 ownerid = 917912917
