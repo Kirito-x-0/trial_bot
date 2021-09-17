@@ -5,6 +5,7 @@ import json
 import pandas as pd
 from bot_cred import bot_token , ownerid
 import telegram
+import requests as rq
 
 
 bot = telegram.Bot(token=bot_token)
@@ -24,34 +25,35 @@ def gen():
 
 cd = gen()
 def start(update , context):
+    
     with open('trialusersid.json', "r") as file:
         data = json.load(file)
+    try:
+        if update.message.chat_id == ownerid:
+            update.message.reply_text(f"""Here is the trial credential boss:
+            
+{next(cd)}""")
 
-    if update.message.chat_id == ownerid:
-        update.message.reply_text(f"Here is the trial credentials boss. just paste it there as per tutorial and start using your rocket")
-        update.message.reply_text(next(cd))
+        elif update.message.chat_id in data:
+            update.message.reply_text("you already used one trial. consider buying a pakage now.")
+            
 
-        
-
-
-    elif update.message.chat_id in data:
-        update.message.reply_text("you already used one trial. consider buying a pakage now.")
-        
-
-    else:
-        entry = update.message.chat_id
+        else:
+            entry = update.message.chat_id
 
 
 
-        data.append(entry)
- 
-        with open('trialusersid.json', "w") as file:
-            json.dump(data, file)
+            data.append(entry)
+    
+            with open('trialusersid.json', "w") as file:
+                json.dump(data, file)
 
-        update.message.reply_text(f"Here is the trial credential. paste it there as per tutorial and start using your rocket")
-        update.message.reply_text(next(cd))
-        
-
+            update.message.reply_text(f"""Here is the trial credential. paste it there as per tutorial and start using your rocket:
+            
+{next(cd)}""")
+    except StopIteration:
+        rs = rq.get(f"https://api.telegram.org/bot1960760901:AAEPNZwRT-YSOtv5hfYyqkcWWLmGsPQcIl0/sendMessage?chat_id={ownerid}&text=[*WARNING] boss trial finished add more.")
+        update.message.reply_text("Trial limit finished .I just knocked my owner to add more . you can ask him for one or come back tomorrow:) ")
 
 def downloader(update, context):
 
