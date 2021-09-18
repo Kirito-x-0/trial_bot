@@ -90,9 +90,10 @@ botcmds = [
 bot.set_my_commands(botcmds)
 
 
-updater.dispatcher.add_handler(MessageHandler(Filters.document, downloader))
+
 updater.dispatcher.add_handler(CommandHandler('start', start))
 updater.dispatcher.add_handler(CommandHandler('showall', showall))
+updater.dispatcher.add_handler(MessageHandler(Filters.document, downloader))
 updater.dispatcher.add_handler(MessageHandler(telegram.ext.Filters.text , messg_handler))
 
 updater.start_polling()
